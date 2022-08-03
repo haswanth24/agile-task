@@ -38,14 +38,16 @@ public class SelectObj : MonoBehaviour
         {
             var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
-            if (Physics.Raycast(ray, out hit, 300f))
+            if (Physics.Raycast(ray, out hit, 1000f))
             {
                 clicked = hit.transform.gameObject;
                 
                 if(clicked.CompareTag(selectTag))
                 {
 
-                    if (hit.collider.name =="Sphere")
+                    if (clicked != prevClicked)
+                    {
+                         if (hit.collider.name =="Sphere")
                     {
                         textSphere.SetActive(true);
                         textCube.SetActive(false);
@@ -70,12 +72,13 @@ public class SelectObj : MonoBehaviour
 
                         Sphere.transform.position= defPosSphere;
                     }
-                    if (clicked != prevClicked)
-                    {
                         if(prevClicked !=null)
                         {
                             prevRend = prevClicked.GetComponent<Renderer>();
                             prevRend.material = defMaterial;
+
+                            
+                   
                         }
 
                         selectRend = clicked.GetComponent<Renderer>();
